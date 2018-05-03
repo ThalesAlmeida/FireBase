@@ -1,13 +1,10 @@
 package com.example.thales.firebase.Activity;
 
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -19,25 +16,26 @@ import com.example.thales.firebase.Helper.Preferencias;
 import com.example.thales.firebase.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthActionCodeException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CadastroUsuarioActivity extends AppCompatActivity {
+public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
+
+    private BootstrapEditText nome;
     private BootstrapEditText email;
     private BootstrapEditText senha;
     private BootstrapEditText senha1;
-    private BootstrapEditText nome;
-    private BootstrapButton telefone;
-    private BootstrapButton profissao;
+    private BootstrapEditText telefone;
+    private BootstrapEditText profissao;
+
     private RadioButton rbProfissional;
     private RadioButton rbCliente;
+
     private BootstrapButton btnCadastrar;
     private BootstrapButton btnCancelar;
 
@@ -49,16 +47,18 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro_usuario);
+        setContentView(R.layout.activity_cadastro_usuario_profissional);
 
         email = findViewById(R.id.edtCadEmail);
         senha = findViewById(R.id.edtCadSenha);
         senha1 = findViewById(R.id.edtCadSenha1);
         nome = findViewById(R.id.edtCadNome);
-        telefone = findViewById(R.id.edtCadTelefone);
         profissao = findViewById(R.id.edtCadProfissao);
+
+
         rbProfissional = findViewById(R.id.rbProfissional);
         rbCliente = findViewById(R.id.rbCliente);
+
         btnCadastrar = findViewById(R.id.btnRegistrar);
         btnCancelar = findViewById(R.id.btnCancelar);
 
@@ -72,9 +72,9 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     usuario.setEmail(email.getText().toString());
                     usuario.setSenha(senha.getText().toString());
                     usuario.setNome(nome.getText().toString());
-                    usuario.setTelefone(telefone.getText().toString());
                     usuario.setProfissao(profissao.getText().toString());
-                    usuario.setTipoUsuario("Profissional");
+                    usuario.setTelefone(telefone.getText().toString());
+                    usuario.setTipoUsuario("Profissão");
 
                     if (rbProfissional.isChecked()) {
                         usuario.setTipoUsuario("Profissional");
@@ -83,7 +83,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     }
                     cadastrarUsuario();
                 } else {
-                    Toast.makeText(CadastroUsuarioActivity.this, "As senhas não correspondem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CadastroUsuarioProfissionalActivity.this, "As senhas não correspondem", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,7 +91,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CadastroUsuarioActivity.this, MainActivity.class);
+                Intent intent = new Intent(CadastroUsuarioProfissionalActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -103,7 +103,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         autenticacao.createUserWithEmailAndPassword(
                 usuario.getEmail(),
                 usuario.getSenha()
-        ).addOnCompleteListener(CadastroUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
+        ).addOnCompleteListener(CadastroUsuarioProfissionalActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -131,7 +131,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(CadastroUsuarioActivity.this, "Erro + " + erroExcecao, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CadastroUsuarioProfissionalActivity.this, "Erro + " + erroExcecao, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -144,11 +144,11 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             usuario.setKeyUsuario(key);
             databaseReference.child(key).setValue(usuario);
             //databaseReference.push().setValue(usuario);
-            Toast.makeText(CadastroUsuarioActivity.this, "Usuario gravado com sucesso", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastroUsuarioProfissionalActivity.this, "Usuario gravado com sucesso", Toast.LENGTH_SHORT).show();
             return true;
 
         }catch (Exception e){
-            Toast.makeText(CadastroUsuarioActivity.this, "Erro ao gravar o usuario", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CadastroUsuarioProfissionalActivity.this, "Erro ao gravar o usuario", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             return false;
         }
@@ -156,19 +156,19 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
     private void abrirTelaPrincipal(){
         autenticacao = ConfiguracaoFirebase.getFireBaseAuth();
-        Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
+        Preferencias preferencias = new Preferencias(CadastroUsuarioProfissionalActivity.this);
 
         autenticacao.signInWithEmailAndPassword(preferencias.getEmailUsuarioLogado(), preferencias.getSenhaUsuarioLogado()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent intent = new Intent(CadastroUsuarioActivity.this, PrincipalActivity.class);
+                    Intent intent = new Intent(CadastroUsuarioProfissionalActivity.this, PrincipalActivity.class);
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(CadastroUsuarioActivity.this, "Falha", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroUsuarioProfissionalActivity.this, "Falha", Toast.LENGTH_LONG).show();
                     autenticacao.signOut();
-                    Intent intent = new Intent(CadastroUsuarioActivity.this, MainActivity.class);
+                    Intent intent = new Intent(CadastroUsuarioProfissionalActivity.this, MainActivity.class);
                     finish();
                     startActivity(intent);
                 }
@@ -176,5 +176,4 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         });
     }
 }
-
 
