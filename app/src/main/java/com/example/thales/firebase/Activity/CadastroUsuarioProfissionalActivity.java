@@ -36,7 +36,7 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
     private RadioButton rbProfissional;
     private RadioButton rbCliente;
 
-    private BootstrapButton btnCadastrar;
+    private BootstrapButton btnRegistrar;
     private BootstrapButton btnCancelar;
 
     private FirebaseAuth autenticacao;
@@ -52,6 +52,7 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
         email = findViewById(R.id.edtCadEmail);
         senha = findViewById(R.id.edtCadSenha);
         senha1 = findViewById(R.id.edtCadSenha1);
+        telefone = findViewById(R.id.edtCadTelefone);
         nome = findViewById(R.id.edtCadNome);
         profissao = findViewById(R.id.edtCadProfissao);
 
@@ -59,10 +60,10 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
         rbProfissional = findViewById(R.id.rbProfissional);
         rbCliente = findViewById(R.id.rbCliente);
 
-        btnCadastrar = findViewById(R.id.btnRegistrar);
+        btnRegistrar = findViewById(R.id.btnRegistrar);
         btnCancelar = findViewById(R.id.btnCancelar);
 
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -72,9 +73,10 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
                     usuario.setEmail(email.getText().toString());
                     usuario.setSenha(senha.getText().toString());
                     usuario.setNome(nome.getText().toString());
-                    usuario.setProfissao(profissao.getText().toString());
                     usuario.setTelefone(telefone.getText().toString());
-                    usuario.setTipoUsuario("Profissão");
+                    usuario.setProfissao(profissao.getText().toString());
+
+                    usuario.setTipoUsuario("Profissional");
 
                     if (rbProfissional.isChecked()) {
                         usuario.setTipoUsuario("Profissional");
@@ -108,13 +110,7 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     insereUsuario(usuario);
-                    finish();
 
-                    //Deslogar ao adicionar o usuario
-                    autenticacao.signOut();
-
-                    //Abrir tela principal após a re-autenticação
-                    abrirTelaPrincipal();
                 }else{
                     String erroExcecao = "";
 
@@ -143,8 +139,8 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
             String key = databaseReference.push().getKey();
             usuario.setKeyUsuario(key);
             databaseReference.child(key).setValue(usuario);
-            //databaseReference.push().setValue(usuario);
             Toast.makeText(CadastroUsuarioProfissionalActivity.this, "Usuario gravado com sucesso", Toast.LENGTH_SHORT).show();
+            abrirLoginProfissional();
             return true;
 
         }catch (Exception e){
@@ -154,26 +150,10 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
         }
     }
 
-    private void abrirTelaPrincipal(){
-        autenticacao = ConfiguracaoFirebase.getFireBaseAuth();
-        Preferencias preferencias = new Preferencias(CadastroUsuarioProfissionalActivity.this);
-
-        autenticacao.signInWithEmailAndPassword(preferencias.getEmailUsuarioLogado(), preferencias.getSenhaUsuarioLogado()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Intent intent = new Intent(CadastroUsuarioProfissionalActivity.this, PrincipalActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Toast.makeText(CadastroUsuarioProfissionalActivity.this, "Falha", Toast.LENGTH_LONG).show();
-                    autenticacao.signOut();
-                    Intent intent = new Intent(CadastroUsuarioProfissionalActivity.this, MainActivity.class);
-                    finish();
-                    startActivity(intent);
-                }
-            }
-        });
+    private void abrirLoginProfissional() {
+            Intent intent = new Intent(CadastroUsuarioProfissionalActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
     }
 }
 
