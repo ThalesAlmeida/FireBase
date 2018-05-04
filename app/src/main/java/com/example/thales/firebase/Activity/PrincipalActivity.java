@@ -85,6 +85,8 @@ public class PrincipalActivity extends AppCompatActivity {
             deslogarUsuario();
         }else if (id == R.id.action_cad_foto_perfil_cliente) {
             uploadFotoPerfil();
+        }else if (id == R.id.action_ver_cardapio) {
+            verCardapio();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -104,6 +106,11 @@ public class PrincipalActivity extends AppCompatActivity {
     }
     private void uploadFotoPerfil(){
         Intent intent = new Intent(PrincipalActivity.this, UploadFotoActivity.class);
+        startActivity(intent);
+    }
+
+    private void verCardapio() {
+        Intent intent = new Intent(PrincipalActivity.this, UsuariosActivity.class);
         startActivity(intent);
     }
 

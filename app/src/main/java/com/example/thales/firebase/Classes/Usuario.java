@@ -11,6 +11,7 @@ public class Usuario {
     private String endereco;
     private String profissao;
     private String keyUsuario;
+    private String urlImagem;
 
     private String tipoUsuario;
 
@@ -78,5 +79,13 @@ public class Usuario {
 
     public void setKeyUsuario(String keyUsuario) {
         this.keyUsuario = keyUsuario;
+    }
+
+    public String getUrlImagem() {
+        return urlImagem;
+    }
+
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
     }
 }
