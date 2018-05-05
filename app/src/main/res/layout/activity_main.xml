@@ -43,7 +43,6 @@
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
                 android:hint="Email"
                 app:roundedCorners="true"
                 android:layout_marginTop="10dp"
@@ -57,19 +56,17 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Senha"
-                android:textStyle="italic"
                 app:roundedCorners="true"
                 android:layout_marginTop="10dp"
                 app:bootstrapSize="xl"
-                app:bootstrapBrand="info"
-                />
+                app:bootstrapBrand="info" />
 
 
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
+                android:textStyle="bold"
                 android:text="Entrar"
                 android:layout_marginTop="10dp"
                 app:bootstrapBrand="success"
@@ -77,6 +74,16 @@
                 app:buttonMode="regular"
                 app:showOutline="false"
                 app:roundedCorners="true" />
+
+            <TextView
+                android:id="@+id/txtRecuperarSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Esqueceu a senha? Clique aqui"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                android:textColor="#000000"
+                android:textStyle="bold"/>
 
 
             <com.beardedhen.androidbootstrap.BootstrapButton
@@ -86,7 +93,7 @@
                 android:textStyle="italic"
                 android:text="Registrar-se como Cliente"
                 android:layout_marginTop="10dp"
-                app:bootstrapBrand="primary"
+                app:bootstrapBrand="secondary"
                 app:bootstrapSize="lg"
                 app:buttonMode="regular"
                 app:showOutline="false"
@@ -99,7 +106,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Registrar-se como Profissional"
                 android:textStyle="italic"
-                app:bootstrapBrand="primary"
+                app:bootstrapBrand="secondary"
                 app:bootstrapSize="lg"
                 app:buttonMode="regular"
                 app:roundedCorners="true"

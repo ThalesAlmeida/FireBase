@@ -2,12 +2,16 @@ package com.example.thales.firebase.Activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private BootstrapButton btnLogin;
     private BootstrapButton btnRegistrarProfissional;
     private BootstrapButton btnRegistrarCliente;
+    private TextView txtRecuperarSenha;
+    private AlertDialog alertDialog;
     private Usuario usuario;
 
 
@@ -43,8 +49,12 @@ public class MainActivity extends AppCompatActivity {
         edtEmailLogin = findViewById(R.id.edtEmail);
         edtSenhaLogin = findViewById(R.id.edtSenha);
         btnLogin = findViewById(R.id.btnLogin);
+        txtRecuperarSenha = findViewById(R.id.txtRecuperarSenha);
         btnRegistrarProfissional = findViewById(R.id.btnRegistrarProfissional);
         btnRegistrarCliente = findViewById(R.id.btnRegistrarCliente);
+
+        final EditText editTextEmail = new EditText(MainActivity.this);
+        editTextEmail.setHint("exemplo@exemplo.com");
 
 
         permission();
@@ -86,6 +96,65 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CadastroUsuarioProfissionalActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        txtRecuperarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setCancelable(false);
+
+                builder.setTitle("Recuperar Senha");
+
+                builder.setMessage("Informe o seu email");
+
+                builder.setView(editTextEmail);
+
+                if(!editTextEmail.getText().equals("")){
+                    builder.setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, final int i) {
+                            autenticacao = FirebaseAuth.getInstance();
+
+                            String emailRecuperar = editTextEmail.getText().toString();
+
+                            autenticacao.sendPasswordResetEmail(emailRecuperar).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(MainActivity.this, "Você receberá um email", Toast.LENGTH_SHORT).show();
+                                        Intent intent = getIntent();
+                                        finish();
+                                        startActivity(intent);
+
+                                    }else{
+                                        Toast.makeText(MainActivity.this, "Falha ao enviar o email, cadastre-se", Toast.LENGTH_SHORT).show();
+
+                                        Intent intent = getIntent();
+                                        finish();
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    Toast.makeText(MainActivity.this, "Preencha o campo de email", Toast.LENGTH_SHORT).show();
+                }
+
+                alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }

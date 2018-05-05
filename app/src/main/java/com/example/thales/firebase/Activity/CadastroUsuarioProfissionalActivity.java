@@ -113,7 +113,7 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
 
                 }else{
                     String erroExcecao = "";
-                    
+
                     try{
                         throw task.getException();
                     }catch (FirebaseAuthWeakPasswordException e){
