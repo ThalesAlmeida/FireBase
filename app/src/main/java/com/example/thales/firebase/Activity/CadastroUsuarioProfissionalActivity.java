@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -24,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
 
     private BootstrapEditText nome;
@@ -32,6 +38,10 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
     private BootstrapEditText senha1;
     private BootstrapEditText telefone;
     private BootstrapEditText profissao;
+    private String profissoes;
+    private List<String> profissoesList = new ArrayList<String>();
+
+    private Spinner spinnerProfissoes;
 
     private RadioButton rbProfissional;
     private RadioButton rbCliente;
@@ -56,6 +66,11 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
         nome = findViewById(R.id.edtCadNome);
         profissao = findViewById(R.id.edtCadProfissao);
 
+        spinnerProfissoes = findViewById(R.id.spinnerProfissoes);
+
+        profissoesList.add("Pedreiro");
+        profissoesList.add("Encanador");
+        profissoesList.add("Carpinteiro");
 
         rbProfissional = findViewById(R.id.rbProfissional);
         rbCliente = findViewById(R.id.rbCliente);
@@ -63,32 +78,49 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnCancelar = findViewById(R.id.btnCancelar);
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profissoesList);
+        ArrayAdapter<String> spinnerArrayAdapter = arrayAdapter;
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spinnerProfissoes.setAdapter(spinnerArrayAdapter);
+
+        spinnerProfissoes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-
-                if (senha.getText().toString().equals(senha1.getText().toString())) {
-                    usuario = new Usuario();
-
-                    usuario.setEmail(email.getText().toString());
-                    usuario.setSenha(senha.getText().toString());
-                    usuario.setNome(nome.getText().toString());
-                    usuario.setTelefone(telefone.getText().toString());
-                    usuario.setProfissao(profissao.getText().toString());
-
-                    usuario.setTipoUsuario("Profissional");
-
-                    if (rbProfissional.isChecked()) {
-                        usuario.setTipoUsuario("Profissional");
-                    } else if (rbCliente.isChecked()) {
-                        usuario.setTipoUsuario("Cliente");
-                    }
-                    cadastrarUsuario();
-                } else {
-                    Toast.makeText(CadastroUsuarioProfissionalActivity.this, "As senhas não correspondem", Toast.LENGTH_SHORT).show();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    parent.getItemAtPosition(position).toString();
                 }
-            }
-        });
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+                });
+
+                btnRegistrar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (senha.getText().toString().equals(senha1.getText().toString())) {
+                            usuario = new Usuario();
+
+                            usuario.setEmail(email.getText().toString());
+                            usuario.setSenha(senha.getText().toString());
+                            usuario.setNome(nome.getText().toString());
+                            usuario.setTelefone(telefone.getText().toString());
+                            usuario.setProfissao(profissao.getText().toString());
+
+                            usuario.setTipoUsuario("Profissional");
+
+                            if (rbProfissional.isChecked()) {
+                                usuario.setTipoUsuario("Profissional");
+                            } else if (rbCliente.isChecked()) {
+                                usuario.setTipoUsuario("Cliente");
+                            }
+                            cadastrarUsuario();
+                        } else {
+                            Toast.makeText(CadastroUsuarioProfissionalActivity.this, "As senhas não correspondem", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
