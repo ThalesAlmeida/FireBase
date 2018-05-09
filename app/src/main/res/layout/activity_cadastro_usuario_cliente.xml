@@ -28,11 +28,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nome"
+                    android:textColorHint="#000000"
                     android:inputType="textCapWords"
                     android:textStyle="italic"
+                    app:bootstrapSize="lg"
                     android:layout_marginTop="10dp"
                     app:roundedCorners="true"
-                    app:bootstrapSize="xl"
                     app:bootstrapBrand="info" />
 
 
@@ -41,11 +42,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
+                    android:textColorHint="#000000"
                     android:inputType="textEmailAddress"
                     android:textStyle="italic"
+                    app:bootstrapSize="lg"
                     android:layout_marginTop="10dp"
                     app:roundedCorners="true"
-                    app:bootstrapSize="xl"
                     app:bootstrapBrand="info" />
 
 
@@ -54,11 +56,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Senha"
+                    android:textColorHint="#000000"
                     android:inputType="textPassword"
                     android:textStyle="italic"
+                    app:bootstrapSize="lg"
                     android:layout_marginTop="10dp"
                     app:roundedCorners="true"
-                    app:bootstrapSize="xl"
                     app:bootstrapBrand="info" />
 
 
@@ -67,11 +70,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Confirme a senha"
+                    android:textColorHint="#000000"
                     android:inputType="textPassword"
                     android:textStyle="italic"
+                    app:bootstrapSize="lg"
                     android:layout_marginTop="10dp"
                     app:roundedCorners="true"
-                    app:bootstrapSize="xl"
                     app:bootstrapBrand="info" />
 
 
@@ -80,11 +84,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Telefone"
+                    android:textColorHint="#000000"
                     android:inputType="number"
                     android:textStyle="italic"
+                    app:bootstrapSize="lg"
                     android:layout_marginTop="10dp"
                     app:roundedCorners="true"
-                    app:bootstrapSize="xl"
                     app:bootstrapBrand="info" />
 
                 <com.beardedhen.androidbootstrap.BootstrapEditText
@@ -92,11 +97,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Endereço"
+                    android:textColorHint="#000000"
                     android:inputType="textPostalAddress"
                     android:textStyle="italic"
+                    app:bootstrapSize="lg"
                     android:layout_marginTop="10dp"
                     app:roundedCorners="true"
-                    app:bootstrapSize="xl"
                     app:bootstrapBrand="info" />
 
                 <RadioGroup

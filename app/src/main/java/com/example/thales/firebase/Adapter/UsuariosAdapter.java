@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.thales.firebase.Classes.Cardapio;
 import com.example.thales.firebase.Classes.Usuario;
 import com.example.thales.firebase.R;
 import com.google.firebase.database.DataSnapshot;
@@ -26,14 +25,14 @@ import java.util.List;
 
 public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHolder>{
 
-    private List<Usuario> mCardapioList;
+    private List<Usuario> mUsuarioList;
     private Context context;
     private DatabaseReference databaseReference;
-    private List<Usuario> cardapios;
+    private List<Usuario> usuarios;
     private Usuario todosUsuarios;
 
     public UsuariosAdapter(List<Usuario> l, Context context) {
-        this.mCardapioList = l;
+        this.mUsuarioList = l;
         this.context = context;
     }
 
@@ -47,20 +46,20 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final UsuariosAdapter.ViewHolder holder, int position) {
-        final Usuario item = mCardapioList.get(position);
+        final Usuario item = mUsuarioList.get(position);
 
-        cardapios = new ArrayList<>();
+        usuarios = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("usuarios").orderByChild("keyProduto").equalTo(item.getKeyUsuario()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                cardapios.clear();
+                usuarios.clear();
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     todosUsuarios = postSnapshot.getValue(Usuario.class);
 
-                    cardapios.add(todosUsuarios);
+                    usuarios.add(todosUsuarios);
 
                     DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
                     final int height = (displayMetrics.heightPixels / 4);
@@ -94,7 +93,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mCardapioList.size();
+        return mUsuarioList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

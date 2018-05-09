@@ -1,11 +1,15 @@
 package com.example.thales.firebase.Activity;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.thales.firebase.Classes.Usuario;
 import com.example.thales.firebase.R;
@@ -25,6 +29,10 @@ public class PrincipalActivity extends AppCompatActivity {
     private String tipoUsuarioEmail;
     private Menu menu1;
 
+    private DrawerLayout drawerLayout;
+
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +41,13 @@ public class PrincipalActivity extends AppCompatActivity {
         tipoUsuario = findViewById(R.id.txtTipoUsuario);
         autenticacao = FirebaseAuth.getInstance();
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,6 +85,7 @@ public class PrincipalActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -85,11 +98,14 @@ public class PrincipalActivity extends AppCompatActivity {
             deslogarUsuario();
         }else if (id == R.id.action_cad_foto_perfil_cliente) {
             uploadFotoPerfil();
-        }else if (id == R.id.action_ver_cardapio) {
-            verCardapio();
+        }else if (id == R.id.action_ver_profissionais) {
+            verProfissionais();
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     public void abrirTelaCadastroUsuario(){
         Intent intent = new Intent(PrincipalActivity.this, CadastroUsuarioProfissionalActivity.class);
@@ -109,9 +125,22 @@ public class PrincipalActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void verCardapio() {
+    private void verProfissionais() {
         Intent intent = new Intent(PrincipalActivity.this, UsuariosActivity.class);
         startActivity(intent);
+    }
+
+    private void setSupportActionBar(Toolbar toolbar) {
+        //toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().show();
+    }
+
+    private void setUpNavDrawer(){
+
+
     }
 
 
