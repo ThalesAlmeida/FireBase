@@ -51,7 +51,7 @@ public class UsuariosActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference.child("usuarios").orderByChild("nomeUsuario").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("usuariosProfissional").orderByChild("nomeUsuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayoutUsuariosCardapio"
+        android:id="@+id/linearLayoutUsuarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

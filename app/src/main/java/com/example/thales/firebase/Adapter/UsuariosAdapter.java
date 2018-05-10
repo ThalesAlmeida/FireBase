@@ -50,8 +50,8 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
 
         usuarios = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("usuarios").orderByChild("keyProduto").equalTo(item.getKeyUsuario()).addValueEventListener(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("usuariosProfissional");
+        databaseReference.child("usuariosProfissional").orderByChild("keyUsuario").equalTo(item.getKeyUsuario()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 usuarios.clear();
@@ -67,7 +67,6 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
 
                     Picasso.get().load(todosUsuarios.getUrlImagem()).resize(width,height).centerCrop().into(holder.fotoUsuario);
 
-
                 }
             }
 
@@ -77,12 +76,12 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
             }
         });
 
-        holder.txtNomeUsuario.setText(item.getNome());
-        holder.txtTelefoneUsuario.setText(item.getTelefone());
-        holder.txtEmailUsuario.setText(item.getEmail());
-        holder.txtProfissaoUsuario.setText(item.getProfissao());
+        holder.txtNomeUsuario.setText("Nome do profissional: " + item.getNome());
+        holder.txtTelefoneUsuario.setText("Telefone do profissional: " + item.getTelefone());
+        holder.txtEmailUsuario.setText("Email do profissional: "+ item.getEmail());
+        holder.txtProfissaoUsuario.setText("Ocupação do profissional: "+ item.getProfissao());
 
-        holder.linearLayoutUsuariosCardapio.setOnClickListener(new View.OnClickListener() {
+        holder.linearLayoutUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -104,7 +103,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
         protected TextView txtProfissaoUsuario;
         protected ImageView fotoUsuario;
 
-        protected LinearLayout linearLayoutUsuariosCardapio;
+        protected LinearLayout linearLayoutUsuarios;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -115,7 +114,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.ViewHo
             txtProfissaoUsuario = itemView.findViewById(R.id.txtProfissaoUsuario);
 
             fotoUsuario = itemView.findViewById(R.id.fotoUsuario);
-            linearLayoutUsuariosCardapio = itemView.findViewById(R.id.linearLayoutUsuariosCardapio);
+            linearLayoutUsuarios = itemView.findViewById(R.id.linearLayoutUsuarios);
         }
     }
 }

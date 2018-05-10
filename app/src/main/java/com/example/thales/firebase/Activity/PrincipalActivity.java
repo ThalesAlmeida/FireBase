@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.thales.firebase.R.string.app_name;
+
 public class PrincipalActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
@@ -46,6 +48,8 @@ public class PrincipalActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        //setSupportActionBar(toolbar);
+
     }
 
 
@@ -58,20 +62,38 @@ public class PrincipalActivity extends AppCompatActivity {
         String email = autenticacao.getCurrentUser().getEmail().toString();
 
 
-        databaseReference.child("usuarios").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("usuariosProfissional").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     tipoUsuarioEmail = dataSnapshot1.child("tipoUsuario").getValue().toString();
 
                     tipoUsuario.setText(tipoUsuarioEmail);
 
                     menu1.clear();
-                    if(tipoUsuarioEmail.equals("Profissional")){
-                        getMenuInflater().inflate(R.menu.menu_profissional, menu1);
-                    }else if (tipoUsuarioEmail.equals("Cliente")){
-                        getMenuInflater().inflate(R.menu.menu_cliente, menu1);
+
+                    getMenuInflater().inflate(R.menu.menu_profissional, menu1);
                     }
+                }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseReference.child("usuariosCliente").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
+                    tipoUsuarioEmail = dataSnapshot2.child("tipoUsuario").getValue().toString();
+
+                    tipoUsuario.setText(tipoUsuarioEmail);
+
+                    menu1.clear();
+
+                    getMenuInflater().inflate(R.menu.menu_cliente, menu1);
                 }
             }
 
@@ -81,9 +103,11 @@ public class PrincipalActivity extends AppCompatActivity {
             }
         });
 
-        getMenuInflater().inflate(R.menu.menu_profissional, menu);
+        //getMenuInflater().inflate(R.menu.menu_profissional, menu);
         return true;
     }
+
+
 
 
     @Override
@@ -130,9 +154,10 @@ public class PrincipalActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
-        //toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void setUpActionBar() {
+        toolbar = findViewById(R.id.toolbar);
+        //toolbar.setTitle(getResources().getString(R.string.app_name));
+        //setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().show();

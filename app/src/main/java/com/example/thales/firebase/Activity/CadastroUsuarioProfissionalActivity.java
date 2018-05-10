@@ -167,7 +167,7 @@ public class CadastroUsuarioProfissionalActivity extends AppCompatActivity {
 
     private boolean insereUsuario(Usuario usuario){
         try{
-            databaseReference = ConfiguracaoFirebase.getFirebase().child("usuarios");
+            databaseReference = ConfiguracaoFirebase.getFirebase().child("usuariosProfissional");
             String key = databaseReference.push().getKey();
             usuario.setKeyUsuario(key);
             databaseReference.child(key).setValue(usuario);
