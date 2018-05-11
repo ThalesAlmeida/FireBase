@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".Activity.AlterarCadastroProfissional">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alteração de Cadastro"
+                android:textSize="25dp"
+                android:textAlignment="center"/>
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtAltCadNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome"
+                android:textColorHint="#000000"
+                android:inputType="textCapWords"
+                app:bootstrapSize="lg"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info" />
+
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtAltCadEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:textColorHint="#000000"
+                android:inputType="textEmailAddress"
+                android:textStyle="italic"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="10dp"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info" />
+
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtAltCadSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Senha"
+                android:textColorHint="#000000"
+                android:inputType="textPassword"
+                android:textStyle="italic"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="10dp"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info" />
+
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtAltCadSenha1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirme a senha"
+                app:bootstrapSize="lg"
+                android:textColorHint="#000000"
+                android:inputType="textPassword"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info" />
+
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtAltCadTelefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefone"
+                android:textColorHint="#000000"
+                android:inputType="number"
+                android:textStyle="italic"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="10dp"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info" />
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/edtAltCadProfissao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Profissão"
+                android:textColorHint="#000000"
+                android:inputType="textPostalAddress"
+                android:textStyle="italic"
+                app:bootstrapSize="lg"
+                android:layout_marginTop="10dp"
+                app:roundedCorners="true"
+                app:bootstrapBrand="info" />
+
+            <Spinner
+                android:id="@+id/spinnerAltProfissoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tooltipText="#000000"/>
+
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnAlterarCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirmar"
+                app:bootstrapBrand="success"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true" />
+
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnAlterarCancelarCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:layout_marginTop="10dp"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+
+

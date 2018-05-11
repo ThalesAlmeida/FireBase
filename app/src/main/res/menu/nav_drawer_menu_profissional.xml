@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_alterar_cadastro"
+            android:orderInCategory="100"
+            android:title="Alterar Cadastro"
+            app:showAsAction="collapseActionView" />
+
+        <item
+            android:id="@+id/action_sair_profissional"
+            android:orderInCategory="1000"
+            android:title="Desconectar"
+            app:showAsAction="collapseActionView" />
+
+
+    </group>
+
+</menu>

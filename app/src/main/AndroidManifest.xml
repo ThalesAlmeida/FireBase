@@ -23,11 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.PrincipalActivity" />
+        <activity android:name=".Activity.PrincipalActivityCliente" />
         <activity android:name=".Activity.UploadFotoActivity" />
         <activity android:name=".Activity.CadastroUsuarioClienteActivity" />
         <activity android:name=".Activity.CadastroUsuarioProfissionalActivity" />
-        <activity android:name=".Activity.UsuariosActivity"></activity>
+        <activity android:name=".Activity.UsuariosActivity" />
+        <activity android:name=".Activity.AlterarCadastroProfissional" />
+        <activity android:name=".Activity.PrincipalActivityProfissional"></activity>
     </application>
 
 </manifest>

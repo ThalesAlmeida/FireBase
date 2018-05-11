@@ -1,16 +1,19 @@
 package com.example.thales.firebase.Activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.example.thales.firebase.Classes.BaseActivity;
 import com.example.thales.firebase.Classes.Usuario;
 import com.example.thales.firebase.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,9 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.thales.firebase.R.string.app_name;
-
-public class PrincipalActivity extends AppCompatActivity {
+public class PrincipalActivityProfissional extends BaseActivity {
 
     private FirebaseAuth autenticacao;
     private DatabaseReference databaseReference;
@@ -38,7 +39,7 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_principal_profissional);
 
         tipoUsuario = findViewById(R.id.txtTipoUsuario);
         autenticacao = FirebaseAuth.getInstance();
@@ -48,10 +49,9 @@ public class PrincipalActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        //setSupportActionBar(toolbar);
-
+        setUpToolbar();
+        setUpNavDrawer();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,9 +72,9 @@ public class PrincipalActivity extends AppCompatActivity {
 
                     menu1.clear();
 
-                    getMenuInflater().inflate(R.menu.menu_profissional, menu1);
-                    }
+                    getMenuInflater().inflate(R.menu.nav_drawer_menu_profissional, menu1);
                 }
+            }
 
 
             @Override
@@ -93,7 +93,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
                     menu1.clear();
 
-                    getMenuInflater().inflate(R.menu.menu_cliente, menu1);
+                    getMenuInflater().inflate(R.menu.nav_drawer_menu_cliente, menu1);
                 }
             }
 
@@ -107,66 +107,69 @@ public class PrincipalActivity extends AppCompatActivity {
         return true;
     }
 
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if(id == R.id.action_add_usuario){
-            abrirTelaCadastroUsuario();
-        }else if (id == R.id.action_sair_profissional){
-            deslogarUsuario();
-        }else if (id == R.id.action_sair_cliente) {
-            deslogarUsuario();
-        }else if (id == R.id.action_cad_foto_perfil_cliente) {
-            uploadFotoPerfil();
-        }else if (id == R.id.action_ver_profissionais) {
-            verProfissionais();
+    protected void setUpToolbar() {
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        if(toolbar!=null){
+            setSupportActionBar(toolbar);
         }
-        return super.onOptionsItemSelected(item);
     }
 
+    //Configura o NavDrawer
+    protected void setUpNavDrawer() {
+        final ActionBar actionBar = getSupportActionBar();
 
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
+        NavigationView navigationView = findViewById(R.id.navigation_view);
 
-    public void abrirTelaCadastroUsuario(){
-        Intent intent = new Intent(PrincipalActivity.this, CadastroUsuarioProfissionalActivity.class);
-        startActivity(intent);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                item.setChecked(true);
+
+                drawerLayout.closeDrawers();
+
+                onNavDrawerItemSelected(item);
+                return true;
+            }
+        });
+
+    }
+
+    private void onNavDrawerItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_alterar_cadastro:
+                abrirTelaAlterarCadastro();
+                break;
+            case R.id.action_sair_profissional:
+                deslogarUsuario();
+                break;
+        }
+
     }
 
     private void deslogarUsuario(){
         autenticacao.signOut();
 
-        Intent intent = new Intent(PrincipalActivity.this, MainActivity.class);
+        Intent intent = new Intent(PrincipalActivityProfissional.this, MainActivity.class);
         startActivity(intent);
         finish();
 
     }
     private void uploadFotoPerfil(){
-        Intent intent = new Intent(PrincipalActivity.this, UploadFotoActivity.class);
+        Intent intent = new Intent(PrincipalActivityProfissional.this, UploadFotoActivity.class);
         startActivity(intent);
     }
 
-    private void verProfissionais() {
-        Intent intent = new Intent(PrincipalActivity.this, UsuariosActivity.class);
+    public void verProfissionais() {
+        Intent intent = new Intent(PrincipalActivityProfissional.this, UsuariosActivity.class);
         startActivity(intent);
     }
 
-    private void setUpActionBar() {
-        toolbar = findViewById(R.id.toolbar);
-        //toolbar.setTitle(getResources().getString(R.string.app_name));
-        //setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().show();
+    private void abrirTelaAlterarCadastro(){
+        Intent intent = new Intent(PrincipalActivityProfissional.this,AlterarCadastroProfissional.class );
+        startActivity(intent);
     }
-
-    private void setUpNavDrawer(){
-
-
-    }
-
-
 }

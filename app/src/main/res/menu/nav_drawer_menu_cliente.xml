@@ -8,17 +8,17 @@
         android:id="@+id/action_cad_foto_perfil_cliente"
         android:orderInCategory="1000"
         android:title="Adicionar foto de perfil"
-        app:showAsAction="collapseActionView" />
+        android:checked="true"/>
     <item
         android:id="@+id/action_ver_profissionais"
         android:orderInCategory="100"
         android:title="Ver todos os profissionais"
-        app:showAsAction="collapseActionView" />
+        android:checked="true"/>
 
     <item
         android:id="@+id/action_sair_cliente"
         android:orderInCategory="1000"
         android:title="Desconectar"
-        app:showAsAction="collapseActionView" />
+        android:checked="true"/>
     </group>
 </menu>

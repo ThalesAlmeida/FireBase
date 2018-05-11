@@ -25,7 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.internal.InternalTokenProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         permission();
 
         if(usuarioLogado()){
-            Intent intentMinhaConta = new Intent(MainActivity.this, PrincipalActivity.class);
+            Intent intentMinhaConta = new Intent(MainActivity.this, PrincipalActivityProfissional.class);
             abrirNovaActivity(intentMinhaConta);
         }else{
 
@@ -181,9 +180,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void abrirTelaPrincipal(){
-        Intent intent = new Intent(MainActivity.this, PrincipalActivity.class);
+        Intent intent = new Intent(MainActivity.this, PrincipalActivityCliente.class);
         finish();
         startActivity(intent);
+
     }
 
     public boolean usuarioLogado(){

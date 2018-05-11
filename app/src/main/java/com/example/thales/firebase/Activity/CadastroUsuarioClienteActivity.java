@@ -160,7 +160,7 @@ public class CadastroUsuarioClienteActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent intent = new Intent(CadastroUsuarioClienteActivity.this, PrincipalActivity.class);
+                    Intent intent = new Intent(CadastroUsuarioClienteActivity.this, PrincipalActivityCliente.class);
                     startActivity(intent);
                     finish();
                 }else{
