@@ -85,27 +85,6 @@ public class PrincipalActivityCliente extends BaseActivity {
 
             }
         });
-
-        databaseReference.child("usuariosCliente").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
-                    tipoUsuarioEmail = dataSnapshot2.child("tipoUsuario").getValue().toString();
-
-                    tipoUsuario.setText(tipoUsuarioEmail);
-
-                    menu1.clear();
-                    Intent intent = new Intent(PrincipalActivityCliente.this, PrincipalActivityCliente.class);
-                    getMenuInflater().inflate(R.menu.nav_drawer_menu_cliente, menu1);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
         //getMenuInflater().inflate(R.menu.menu_profissional, menu);
         return true;
     }
