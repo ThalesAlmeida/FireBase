@@ -31,6 +31,7 @@
                 android:id="@+id/txtNomeUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
                 android:textSize="15dp"
                 android:text="Nome do usuário" />
 
@@ -38,6 +39,7 @@
                 android:id="@+id/txtTelefoneUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
                 android:textSize="15dp"
                 android:text="Telefone do usuário" />
 
@@ -45,6 +47,7 @@
                 android:id="@+id/txtEmailUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
                 android:textSize="15dp"
                 android:text="Email do usuário" />
 
@@ -52,6 +55,7 @@
                 android:id="@+id/txtProfissaoUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
                 android:textSize="15dp"
                 android:text="Profissão do usuário" />
 
