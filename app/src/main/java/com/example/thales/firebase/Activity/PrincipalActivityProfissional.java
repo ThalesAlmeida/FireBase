@@ -53,60 +53,6 @@ public class PrincipalActivityProfissional extends BaseActivity {
         setUpNavDrawer();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        menu.clear();
-        this.menu1 = menu;
-        //Recebendo o email do usuario logado no momento
-        String email = autenticacao.getCurrentUser().getEmail().toString();
-
-
-        databaseReference.child("usuariosProfissional").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    tipoUsuarioEmail = dataSnapshot1.child("tipoUsuario").getValue().toString();
-
-                    tipoUsuario.setText(tipoUsuarioEmail);
-
-                    menu1.clear();
-
-                    getMenuInflater().inflate(R.menu.nav_drawer_menu_profissional, menu1);
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        databaseReference.child("usuariosCliente").orderByChild("email").equalTo(email.toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
-                    tipoUsuarioEmail = dataSnapshot2.child("tipoUsuario").getValue().toString();
-
-                    tipoUsuario.setText(tipoUsuarioEmail);
-
-                    menu1.clear();
-
-                    getMenuInflater().inflate(R.menu.nav_drawer_menu_cliente, menu1);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        //getMenuInflater().inflate(R.menu.menu_profissional, menu);
-        return true;
-    }
-
     protected void setUpToolbar() {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         if(toolbar!=null){

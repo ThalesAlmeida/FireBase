@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
-import com.example.thales.firebase.Classes.BaseActivity;
 import com.example.thales.firebase.Classes.Usuario;
 import com.example.thales.firebase.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class PrincipalActivityCliente extends BaseActivity {
+public class ClassificacaoUsuarioActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
     private DatabaseReference databaseReference;
@@ -37,22 +36,20 @@ public class PrincipalActivityCliente extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal_cliente);
 
         tipoUsuario = findViewById(R.id.txtTipoUsuario);
         autenticacao = FirebaseAuth.getInstance();
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         setUpToolbar();
         setUpNavDrawer();
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_classificacao_usuario);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,12 +69,10 @@ public class PrincipalActivityCliente extends BaseActivity {
                     tipoUsuario.setText(tipoUsuarioEmail);
 
                     menu1.clear();
-                    Intent intent = new Intent(PrincipalActivityCliente.this, PrincipalActivityProfissional.class);
+                    Intent intent = new Intent(ClassificacaoUsuarioActivity.this, PrincipalActivityProfissional.class);
                     startActivity(intent);
-                    finish();
-                    getMenuInflater().inflate(R.menu.nav_drawer_menu_profissional, menu1);
-                    }
                 }
+            }
 
 
             @Override
@@ -95,8 +90,8 @@ public class PrincipalActivityCliente extends BaseActivity {
                     tipoUsuario.setText(tipoUsuarioEmail);
 
                     menu1.clear();
-                    Intent intent = new Intent(PrincipalActivityCliente.this, PrincipalActivityCliente.class);
-                    getMenuInflater().inflate(R.menu.nav_drawer_menu_cliente, menu1);
+                    Intent intent = new Intent(ClassificacaoUsuarioActivity.this, PrincipalActivityCliente.class);
+                    startActivity(intent);
                 }
             }
 
@@ -152,34 +147,38 @@ public class PrincipalActivityCliente extends BaseActivity {
             case R.id.action_sair_cliente:
                 deslogarUsuario();
                 break;
+            case R.id.action_alterar_cadastro:
+                abrirTelaAlterarCadastro();
+                break;
+            case R.id.action_sair_profissional:
+                deslogarUsuario();
+                break;
         }
-
     }
 
     private void deslogarUsuario(){
         autenticacao.signOut();
 
-        Intent intent = new Intent(PrincipalActivityCliente.this, MainActivity.class);
+        Intent intent = new Intent(ClassificacaoUsuarioActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
 
     }
     private void uploadFotoPerfil(){
-        Intent intent = new Intent(PrincipalActivityCliente.this, UploadFotoActivity.class);
+        Intent intent = new Intent(ClassificacaoUsuarioActivity.this, UploadFotoActivity.class);
         startActivity(intent);
     }
 
     public void verProfissionais() {
-        Intent intent = new Intent(PrincipalActivityCliente.this, UsuariosActivity.class);
+        Intent intent = new Intent(ClassificacaoUsuarioActivity.this, UsuariosActivity.class);
         startActivity(intent);
     }
 
     private void abrirTelaAlterarCadastro(){
-        Intent intent = new Intent(PrincipalActivityCliente.this,AlterarCadastroProfissional.class );
+        Intent intent = new Intent(ClassificacaoUsuarioActivity.this,AlterarCadastroProfissional.class );
         startActivity(intent);
     }
 
-
-
-
 }
+
+
