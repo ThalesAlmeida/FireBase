@@ -1,6 +1,7 @@
 package com.example.thales.firebase.Activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.thales.firebase.Classes.BaseActivity;
@@ -36,6 +38,18 @@ public class PrincipalActivityProfissional extends BaseActivity {
     private DrawerLayout drawerLayout;
 
     private Toolbar toolbar;
+
+    private boolean backPressedOnce = false;
+    private Handler backPressedHandler = new Handler();
+
+    private static final int BACK_PRESSED_DELAY = 2000;
+
+    private final Runnable backPressedTimeoutAction = new Runnable() {
+        @Override
+        public void run() {
+            backPressedOnce = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,5 +157,26 @@ public class PrincipalActivityProfissional extends BaseActivity {
         if(drawerLayout !=null){
             drawerLayout.closeDrawer(GravityCompat.START);
         }
+    }
+
+    public void onBackPressed() {
+        // Back pressionado
+
+        if (this.backPressedOnce) {
+            // Finaliza a aplicacao
+
+            finish();
+            autenticacao.signOut();
+
+            return;
+        }
+
+        this.backPressedOnce = true;
+
+        Toast.makeText(this, "Pressione novamente para sair",
+                Toast.LENGTH_SHORT).show();
+
+        backPressedHandler.postDelayed(backPressedTimeoutAction, BACK_PRESSED_DELAY);
+
     }
 }

@@ -1,6 +1,7 @@
 package com.example.thales.firebase.Activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +34,17 @@ public class PrincipalActivityCliente extends BaseActivity {
 
     private DrawerLayout drawerLayout;
 
+    private boolean backPressedOnce = false;
+    private Handler backPressedHandler = new Handler();
+
+    private static final int BACK_PRESSED_DELAY = 2000;
+
+    private final Runnable backPressedTimeoutAction = new Runnable() {
+        @Override
+        public void run() {
+            backPressedOnce = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +192,25 @@ public class PrincipalActivityCliente extends BaseActivity {
         }
     }
 
+    public void onBackPressed() {
+        // Back pressionado
 
+        if (this.backPressedOnce) {
+            // Finaliza a aplicacao
+
+            finish();
+            autenticacao.signOut();
+
+            return;
+        }
+
+        this.backPressedOnce = true;
+
+        Toast.makeText(this, "Pressione novamente para sair",
+                Toast.LENGTH_SHORT).show();
+
+        backPressedHandler.postDelayed(backPressedTimeoutAction, BACK_PRESSED_DELAY);
+
+    }
 
 }
