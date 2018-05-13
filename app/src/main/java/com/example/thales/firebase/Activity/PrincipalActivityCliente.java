@@ -3,6 +3,7 @@ package com.example.thales.firebase.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -27,13 +28,11 @@ public class PrincipalActivityCliente extends BaseActivity {
     private FirebaseAuth autenticacao;
     private DatabaseReference databaseReference;
     private TextView tipoUsuario;
-    private Usuario usuario;
     private String tipoUsuarioEmail;
     private Menu menu1;
 
     private DrawerLayout drawerLayout;
 
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +84,12 @@ public class PrincipalActivityCliente extends BaseActivity {
 
             }
         });
-        //getMenuInflater().inflate(R.menu.menu_profissional, menu);
         return true;
     }
 
     protected void setUpToolbar() {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.app_name));
         if(toolbar!=null){
             setSupportActionBar(toolbar);
         }
@@ -101,6 +100,7 @@ public class PrincipalActivityCliente extends BaseActivity {
         final ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -114,6 +114,7 @@ public class PrincipalActivityCliente extends BaseActivity {
                 drawerLayout.closeDrawers();
 
                 onNavDrawerItemSelected(item);
+
                 return true;
             }
         });
@@ -153,12 +154,27 @@ public class PrincipalActivityCliente extends BaseActivity {
         startActivity(intent);
     }
 
-    private void abrirTelaAlterarCadastro(){
-        Intent intent = new Intent(PrincipalActivityCliente.this,AlterarCadastroProfissional.class );
-        startActivity(intent);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                if(drawerLayout != null){
+                    openDrawer();
+                    return true;
+                }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
+    protected void openDrawer(){
+        if(drawerLayout !=null){
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
+    }
 
-
-
+    protected void closeDrawer(){
+        if(drawerLayout !=null){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
 }

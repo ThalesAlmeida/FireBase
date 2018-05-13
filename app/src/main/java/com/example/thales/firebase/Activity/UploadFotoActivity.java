@@ -53,6 +53,7 @@ public class UploadFotoActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imagemCadFotoPerfil);
         carregaImagemPadrao();
 
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,7 @@ package com.example.thales.firebase.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +66,7 @@ public class PrincipalActivityProfissional extends BaseActivity {
         final ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -117,5 +119,29 @@ public class PrincipalActivityProfissional extends BaseActivity {
     private void abrirTelaAlterarCadastro(){
         Intent intent = new Intent(PrincipalActivityProfissional.this,AlterarCadastroProfissional.class );
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                if(drawerLayout != null){
+                    openDrawer();
+                    return true;
+                }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void openDrawer(){
+        if(drawerLayout !=null){
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
+    }
+
+    protected void closeDrawer(){
+        if(drawerLayout !=null){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
     }
 }
