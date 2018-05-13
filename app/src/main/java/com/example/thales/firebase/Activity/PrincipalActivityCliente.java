@@ -74,7 +74,6 @@ public class PrincipalActivityCliente extends BaseActivity {
                     Intent intent = new Intent(PrincipalActivityCliente.this, PrincipalActivityProfissional.class);
                     startActivity(intent);
                     finish();
-                    getMenuInflater().inflate(R.menu.nav_drawer_menu_profissional, menu1);
                     }
                 }
 
@@ -86,6 +85,7 @@ public class PrincipalActivityCliente extends BaseActivity {
         });
         return true;
     }
+
 
     protected void setUpToolbar() {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
@@ -132,6 +132,8 @@ public class PrincipalActivityCliente extends BaseActivity {
             case R.id.action_sair_cliente:
                 deslogarUsuario();
                 break;
+            case R.id.action_about:
+                break;
         }
 
     }
@@ -177,4 +179,7 @@ public class PrincipalActivityCliente extends BaseActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
+
+
+
 }
