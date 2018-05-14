@@ -122,6 +122,20 @@
                 app:roundedCorners="true"
                 app:showOutline="false" />
 
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnRegistrarGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Google"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:roundedCorners="true"
+                app:showOutline="false" />
+
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

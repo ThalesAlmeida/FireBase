@@ -20,6 +20,7 @@ Versao %s<br><br>
     <string name="carros">Carros</string>
     <string name="configuracoes">Configurações</string>
     <string name="classicos">Clássicos</string>
+    <string name="loading">Carregando</string>
 
     <!-- D -->
     <string name="descricao">Descrição</string>

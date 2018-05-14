@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "491603368416-bebpu8a3gvh0q1apsplstj2vh9ted5g2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thales.firebase",
+            "certificate_hash": "5239ab6748d55253ffab97691aa496baa3ba69e8"
+          }
+        },
+        {
           "client_id": "491603368416-00pdvfhpdjcls0er03qehevdo0feq2nl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

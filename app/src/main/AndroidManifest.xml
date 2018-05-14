@@ -29,7 +29,9 @@
         <activity android:name=".Activity.CadastroUsuarioProfissionalActivity" />
         <activity android:name=".Activity.UsuariosActivity" />
         <activity android:name=".Activity.AlterarCadastroProfissional" />
-        <activity android:name=".Activity.PrincipalActivityProfissional"></activity>
+        <activity android:name=".Activity.PrincipalActivityProfissional" />
+        <activity android:name=".Activity.MainActivityAuthGoogle" />
+        <activity android:name=".Activity.LogInActivity"></activity>
     </application>
 
 </manifest>

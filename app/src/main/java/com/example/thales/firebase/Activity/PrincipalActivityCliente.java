@@ -200,7 +200,6 @@ public class PrincipalActivityCliente extends BaseActivity {
 
             finish();
             autenticacao.signOut();
-
             return;
         }
 

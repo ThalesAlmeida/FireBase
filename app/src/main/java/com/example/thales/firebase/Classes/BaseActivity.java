@@ -1,6 +1,9 @@
 package com.example.thales.firebase.Classes;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -8,53 +11,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.thales.firebase.Activity.PrincipalActivityCliente;
 import com.example.thales.firebase.R;
 
 
 public class BaseActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    PrincipalActivityCliente principalActivityCliente;
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
 
-    protected void setUpToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if(toolbar!=null){
-            setSupportActionBar(toolbar);
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
         }
     }
 
-    //Configura o NavDrawer
-    protected void setUpNavDrawer() {
-        final ActionBar actionBar = getSupportActionBar();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                item.setChecked(true);
-
-                drawerLayout.closeDrawers();
-
-                onNavigationItemSelected(item);
-                return true;
-            }
-        });
-
-    }
-
-    private void onNavDrawerItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.action_ver_profissionais:
-                principalActivityCliente.verProfissionais();
-                break;
+    public void hideKeyboard(View view) {
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideProgressDialog();
+    }
 
 }

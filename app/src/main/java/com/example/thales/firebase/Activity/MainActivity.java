@@ -20,6 +20,8 @@ import com.example.thales.firebase.Classes.Usuario;
 import com.example.thales.firebase.DAO.ConfiguracaoFirebase;
 import com.example.thales.firebase.Helper.Preferencias;
 import com.example.thales.firebase.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private Usuario usuario;
 
+    private BootstrapButton btnGoogle;
+
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -45,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         edtEmailLogin = findViewById(R.id.edtEmail);
         edtSenhaLogin = findViewById(R.id.edtSenha);
         btnLogin = findViewById(R.id.btnLogin);
         txtRecuperarSenha = findViewById(R.id.txtRecuperarSenha);
         btnRegistrarProfissional = findViewById(R.id.btnRegistrarProfissional);
         btnRegistrarCliente = findViewById(R.id.btnRegistrarCliente);
+        btnGoogle = findViewById(R.id.btnRegistrarGoogle);
 
         final EditText editTextEmail = new EditText(MainActivity.this);
         editTextEmail.setHint("exemplo@exemplo.com");
@@ -156,7 +162,18 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LogInActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
+
+
 
     private void validaLogin(){
         autenticacao = ConfiguracaoFirebase.getFireBaseAuth();
@@ -209,4 +226,5 @@ public class MainActivity extends AppCompatActivity {
         String [] PERMISSION = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
         ActivityCompat.requestPermissions(this, PERMISSION, PERMISSION_ALL);
     }
+
 }
